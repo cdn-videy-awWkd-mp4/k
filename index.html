@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>.</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background: #1c1c1c;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      width: 90%;
+      max-width: 720px;
+    }
+    video {
+      width: 100%;
+      border-radius: 8px;
+      outline: none;
+    }
+    input {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+      background: #2a2a2a;
+      color: #f0f0f0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .direct-link {
+      margin-top: 10px;
+      background: #111;
+      padding: 10px;
+      border-radius: 6px;
+      word-break: break-all;
+    }
+  </style>
+
+<link rel="me" href="https://www.blogger.com/profile/12155903709031921665" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+<link rel="me" href="https://www.blogger.com/profile/12155903709031921665" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+
+<script type="text/javascript" language="javascript">
+  // Supply ads personalization default for EEA readers
+  // See https://www.blogger.com/go/adspersonalization
+  adsbygoogle = window.adsbygoogle || [];
+  if (typeof adsbygoogle.requestNonPersonalizedAds === 'undefined') {
+    adsbygoogle.requestNonPersonalizedAds = 1;
+  }
+</script>
+
+<link rel="me" href="https://www.blogger.com/profile/12155903709031921665" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+</head>
+<body>
+ 
+ 
+    
+   <div class="container">
+        <h1></h1>
+        <video id="myVideo" controls autoplay muted playsinline>
+            <source src="https://cdn.videy.co/HtRJF3YP1.mp4" type="video/mp4">
+            <!-- Anda bisa menambahkan format lain jika diperlukan, contoh: -->
+            <!-- <source src="https://qu.ax/dHZSi.mp4" type="video/webm"> -->
+            Maaf, browser Anda tidak mendukung pemutaran video.
+        </video>
+        <p id="countdownMessage"><span id="countdown">5</span> detik...</p>
+    </div>
+
+
+
+    <script>
+        const videoElement = document.getElementById('myVideo');
+        const countdownElement = document.getElementById('countdown');
+        // Ganti dengan URL iklan Adstera Anda yang sebenarnya
+        const adsteraAdUrl ="https://www.effectivecpmnetwork.com/ke86zu6ub6?key=c08d52614a7e00d3ba83ccee1ba90057"; // Contoh: 'https://ad.adstera.com/redirect?id=YOUR_AD_ID'
+
+        let timeLeft = 5;
+        let countdownInterval;
+
+        // Fungsi untuk memulai hitung mundur dan pengalihan
+        function startRedirection() {
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                countdownElement.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    console.log('Mengalihkan ke:', adsteraAdUrl);
+                    window.location.href = adsteraAdUrl; // Lakukan pengalihan
+                }
+            }, 1000); // Setiap 1 detik
+        }
+
+        // Pastikan video siap diputar sebelum memulai hitung mundur
+        // Event 'canplaythrough' memastikan video sudah cukup di-buffer untuk diputar tanpa henti
+        videoElement.addEventListener('canplaythrough', () => {
+            console.log('Video siap diputar. Memulai hitung mundur.');
+            videoElement.play().catch(error => {
+                // Tangani kasus di mana autoplay diblokir (misalnya, jika 'muted' dihapus)
+                console.warn('Autoplay diblokir atau gagal:', error);
+                document.getElementById('countdownMessage').textContent = 'Video tidak dapat diputar otomatis. Harap putar secara manual untuk melanjutkan.';
+                // Jika autoplay gagal, Anda mungkin ingin memulai hitung mundur setelah pengguna mengklik play
+                videoElement.addEventListener('play', startRedirection, { once: true });
+            });
+            startRedirection(); // Mulai hitung mundur segera setelah video siap
+        }, { once: true }); // Hanya jalankan listener ini sekali
+
+        // Dalam kasus error loading video
+        videoElement.addEventListener('error', () => {
+            console.error('Terjadi kesalahan saat memuat video.');
+            document.getElementById('countdownMessage').textContent = 'Terjadi kesalahan saat memuat video. Pengalihan mungkin tidak terjadi.';
+            clearInterval(countdownInterval); // Hentikan hitung mundur jika ada masalah video
+        });
+
+        // Fallback jika 'canplaythrough' tidak terpicu atau video diputar dengan cara lain
+        // Jika video sudah mulai diputar (misalnya karena user interaksi), pastikan countdown berjalan
+        videoElement.addEventListener('play', () => {
+            if (!countdownInterval) { // Hanya mulai jika belum dimulai
+                console.log('Video mulai diputar (melalui interaksi atau fallback). Memulai hitung mundur.');
+                startRedirection();
+            }
+        }, { once: true }); // Hanya jalankan listener ini sekali
+    </script>
+<script src="https://pl30096536.effectivecpmnetwork.com/f9/e9/3c/f9e93cda30955560d050ea385ff18d4b.js"></script>
+
+
+  </head> 
+  
+<!-- Histats.com  START  (aync)-->
+<script type="text/javascript">var _Hasync= _Hasync|| [];
+_Hasync.push(['Histats.start', '1,5035993,4,0,0,0,00010000']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+(function() {
+var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+hs.src = ('//s10.histats.com/js15_as.js');
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+})();</script>
+<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?5035993&101" alt="" border="0"></a></noscript>
+<!-- Histats.com  END  --></body></html>
